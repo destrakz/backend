@@ -16,8 +16,8 @@ pipeline {
         NEXUS_CREDENTIAL_ID = 'nexus-user-credential'
         NEXUS_CREDENTIALS = credentials("${NEXUS_CREDENTIAL_ID}")
         ARTIFACT_VERSION = '0.0.1-SNAPSHOT'
-        ARTIFACT_ID = 'blog'
-        GROUP_ID = 'com.jcibardo.blog'
+        ARTIFACT_ID = 'flower-meadow-generator'
+        GROUP_ID = 'io.github.raboro'
         CLASSIFIER = ''
         EXTENSION = 'jar'
     }
