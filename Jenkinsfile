@@ -7,8 +7,8 @@ pipeline {
         maven "maven3"
     }
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhubcredentials')
-        DOCKERHUB_REGISTRY = 'anas129/backend'
+        DOCKERHUB_CREDENTIALS = credentials('credentials-docker')
+        DOCKERHUB_REGISTRY = 'seifkhadraoui/backend'
         SCANNER_HOME=tool 'sonar-scanner'
         NEXUS_VERSION = 'nexus3'
         NEXUS_PROTOCOL = 'http'
@@ -26,7 +26,7 @@ pipeline {
     stages {
         stage('git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Anas4444/backend.git'
+                git branch: 'main', url: 'https://github.com/destrakz/backend.git'
             }
         }
 
@@ -86,14 +86,17 @@ pipeline {
                     sh 'id jenkins'
                     sh 'docker build -t $DOCKERHUB_REGISTRY:$BUILD_NUMBER .'
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    sh 'docker push $DOCKERHUB_REGISTRY:$BUILD_NUMBER'
+                    sh 'docker push $DOCKERHUB_REGISTRY:Latest'
                 }
             }
         }
 
         stage('Deploy') {
             steps() {
-                sh "echo Backend deployed"
+                script() {
+                    sh "docker compose -p 'devops' down || echo 'project devops not running'"
+                    sh "docker compose -p 'devops' up -d --build"
+                }
             }
         }
     }
