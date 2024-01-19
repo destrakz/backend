@@ -82,9 +82,8 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps() {
                 script() {
-                    sh 'id jenkins'
-                    sh 'docker build -t $DOCKERHUB_REGISTRY:latest .'
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'docker build -t $DOCKERHUB_REGISTRY:latest .'
                     sh 'docker push $DOCKERHUB_REGISTRY:latest'
                 }
             }
