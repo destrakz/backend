@@ -73,11 +73,7 @@ pipeline {
             }
         }
 
-        /*stage('Download Artifact') {
-            steps() {
-                new_artifact : downloadMavenArtifact("${GROUP_ID}:${ARTIFACT_ID}:${ARTIFACT_VERSION}:${EXTENSION}${(CLASSIFIER != '') ? ':' + CLASSIFIER : ''}")
-            }
-        }*/
+
 
         stage('Build & Push Docker Image') {
             steps() {
