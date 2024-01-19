@@ -13,7 +13,7 @@ pipeline {
         NEXUS_PROTOCOL = 'http'
         NEXUS_URL = 'nexus:8081'
         NEXUS_REPOSITORY = 'backend-nexus-repo'
-        NEXUS_CREDENTIAL_ID = 'nexus-user-credentials'
+        NEXUS_CREDENTIAL_ID = 'nexus-user-credential'
         NEXUS_CREDENTIALS = credentials("${NEXUS_CREDENTIAL_ID}")
         ARTIFACT_VERSION = '0.0.1-SNAPSHOT'
         ARTIFACT_ID = 'blog'
