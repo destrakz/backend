@@ -23,19 +23,19 @@ pipeline {
     }
 
     stages {
-        stage('git Checkout') {
+        stage('Git Clone Project') {
             steps {
                 git branch: 'main', url: 'https://github.com/destrakz/backend.git'
             }
         }
 
-        stage('Code Compile') {
+        stage('Compile Code') {
             steps {
                 sh 'mvn clean compile'
             }
         }
 
-        stage('SONARQUBE-ANALYSIS') {
+        stage('SonarQube Analysis And Scan') {
             steps() {
                 sh "echo hello from sonar"
                 /*withSonarQubeEnv('sonarqube-server') {
@@ -45,14 +45,14 @@ pipeline {
             }
         }
 
-        stage('Build Package') {
+        stage('Build Package Artifact') {
             steps() {
                 sh "mvn clean package -DskipTests=true"
                 archiveArtifacts artifacts: 'target/*.jar', onlyIfSuccessful: true
             }
         }
 
-        stage('Publish to Nexus') {
+        stage('Publish Artifact to Nexus') {
             steps() {
                 nexusArtifactUploader artifacts:
                 [
@@ -89,7 +89,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deployment') {
             steps() {
                 script() {
                     sh "docker compose -p 'devops' down || echo 'project devops not running'"
